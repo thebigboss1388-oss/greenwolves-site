@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GreenWolves Esports — GWQC</title>
+  <meta name="description" content="Site officiel GreenWolves Esports (GWQC) — roster, réseaux, highlights, contact." />
+
+  <style>
+    :root{
+      --bg:#070a0f;
+      --card:#0c1220;
+      --card2:#0a101c;
+      --text:#e8eefc;
+      --muted:#a9b6d3;
+      --accent:#39ff14; /* vert fluo */
+      --line:rgba(255,255,255,.08);
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius:18px;
+      --max:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      background:
+        radial-gradient(900px 500px at 20% 0%, rgba(57,255,20,.12), transparent 60%),
+        radial-gradient(800px 520px at 80% 10%, rgba(57,255,20,.08), transparent 55%),
+        linear-gradient(180deg, #05070b 0%, var(--bg) 55%, #05070b 100%);
+      color:var(--text);
+      letter-spacing:.2px;
+    }
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:22px;}
+    .nav{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: rgba(7,10,15,.65);
+      border-bottom: 1px solid var(--line);
+    }
+    .navin{display:flex; align-items:center; justify-content:space-between; gap:14px; padding:14px 22px; max-width:var(--max); margin:0 auto;}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.6px;}
+    .dot{width:10px; height:10px; border-radius:999px; background:var(--accent); box-shadow:0 0 20px rgba(57,255,20,.7);}
+    .links{display:flex; gap:14px; flex-wrap:wrap; align-items:center;}
+    .links a{color:var(--muted); font-weight:600; padding:8px 10px; border-radius:12px;}
+    .links a:hover{color:var(--text); background:rgba(255,255,255,.04);}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px; border-radius:14px; font-weight:800;
+      border:1px solid rgba(57,255,20,.35);
+      background: linear-gradient(180deg, rgba(57,255,20,.18), rgba(57,255,20,.05));
+      box-shadow: 0 0 0 4px rgba(57,255,20,.05);
+    }
+    .btn:hover{transform: translateY(-1px); transition:.2s ease;}
+    .hero{padding:48px 0 20px;}
+    .grid{display:grid; grid-template-columns: 1.2fr .8fr; gap:18px;}
+    @media (max-width:900px){ .grid{grid-template-columns:1fr;} .hero{padding-top:30px;} }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .pad{padding:22px;}
+    h1{font-size:44px; line-height:1.05; margin:0 0 12px;}
+    @media (max-width:520px){ h1{font-size:36px;} }
+    .sub{color:var(--muted); font-size:16px; line-height:1.6; margin:0 0 18px;}
+    .tagrow{display:flex; flex-wrap:wrap; gap:10px; margin:14px 0 0;}
+    .tag{
+      border:1px solid var(--line);
+      color:var(--muted);
+      padding:8px 10px;
+      border-radius:999px;
+      background: rgba(0,0,0,.25);
+      font-weight:700;
+      font-size:13px;
+    }
+    .accent{color:var(--accent); text-shadow:0 0 18px rgba(57,255,20,.35);}
+    .mini{
+      display:flex; gap:10px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+      border-top:1px solid var(--line); padding-top:16px; margin-top:16px;
+    }
+    .mini .small{color:var(--muted); font-weight:600;}
+    .section{padding:18px 0;}
+    .section h2{margin:0 0 12px; font-size:22px;}
+    .cols{display:grid; grid-template-columns: repeat(3,1fr); gap:14px;}
+    @media (max-width:900px){ .cols{grid-template-columns:1fr;} }
+    .tile{
+      background: rgba(0,0,0,.25);
+      border:1px solid var(--line);
+      border-radius: 16px;
+      padding:16px;
+    }
+    .tile h3{margin:0 0 6px; font-size:16px;}
+    .tile p{margin:0; color:var(--muted); line-height:1.5; font-size:14px;}
+    .roster{display:grid; grid-template-columns: repeat(5,1fr); gap:12px;}
+    @media (max-width:1000px){ .roster{grid-template-columns: repeat(2,1fr);} }
+    @media (max-width:520px){ .roster{grid-template-columns: 1fr;} }
+    .player{
+      background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.18));
+      border:1px solid var(--line);
+      border-radius: 16px;
+      padding:14px;
+      position:relative;
+      overflow:hidden;
+    }
+    .player:before{
+      content:"";
+      position:absolute; inset:-60px -60px auto auto;
+      width:140px; height:140px;
+      background: radial-gradient(circle at 30% 30%, rgba(57,255,20,.22), transparent 60%);
+      transform: rotate(18deg);
+    }
+    .name{font-weight:900; letter-spacing:.3px;}
+    .role{color:var(--muted); font-weight:700; font-size:13px; margin-top:4px;}
+    .pill{
+      display:inline-block; margin-top:10px;
+      padding:6px 10px; border-radius:999px;
+      border:1px solid rgba(57,255,20,.28);
+      color: rgba(57,255,20,.95);
+      font-weight:900; font-size:12px;
+      background: rgba(57,255,20,.08);
+    }
+    .footer{
+      padding:26px 0 50px;
+      color:var(--muted);
+      border-top:1px solid var(--line);
+      margin-top:18px;
+    }
+    .kpi{display:grid; grid-template-columns: repeat(3,1fr); gap:12px; margin-top:12px;}
+    @media (max-width:900px){ .kpi{grid-template-columns:1fr;} }
+    .k{
+      padding:14px; border-radius:16px; border:1px solid var(--line);
+      background: rgba(0,0,0,.22);
+    }
+    .k b{display:block; font-size:18px;}
+    .k span{color:var(--muted); font-weight:600; font-size:13px;}
+    .note{font-size:12px; color:var(--muted); margin-top:10px;}
+    .inputs{display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-top:10px;}
+    @media (max-width:900px){ .inputs{grid-template-columns:1fr;} }
+    input, textarea{
+      width:100%; padding:12px 12px; border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(0,0,0,.25);
+      color: var(--text);
+      outline:none;
+    }
+    textarea{min-height:110px; resize:vertical;}
+    .sendrow{display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:10px;}
+    .ghost{
+      padding:10px 14px; border-radius:14px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:800;
+    }
+    .ghost:hover{background:rgba(255,255,255,.06);}
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="navin">
+      <div class="brand">
+        <span class="dot"></span>
+        <span>GREENWOLVES <span class="accent">ESPORTS</span></span>
+      </div>
+
+      <nav class="links">
+        <a href="#apropos">À propos</a>
+        <a href="#roster">Roster</a>
+        <a href="#highlights">Highlights</a>
+        <a href="#reseaux">Réseaux</a>
+        <a class="btn" href="#contact">Rejoins la GWQC</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="grid">
+        <div class="card">
+          <div class="pad">
+            <h1>
+              La meute est là.<br />
+              <span class="accent">GreenWolves</span> sur Rainbow Six Siege.
+            </h1>
+            <p class="sub">
+              Site officiel GWQC : roster, réseaux, highlights et contact.
+              Style pro, simple, et prêt à publier gratuitement.
+            </p>
+
+            <div class="tagrow">
+              <span class="tag">🟩 Vert fluo / Noir</span>
+              <span class="tag">🎮 R6 Siege</span>
+              <span class="tag">🏆 Objectif: Pro League</span>
+              <span class="tag">📍 Québec</span>
+            </div>
+
+            <div class="mini">
+              <div class="small">Pseudo : <b class="accent">BigBoss.GWQC</b></div>
+              <a class="btn" href="#roster">Voir le roster</a>
+            </div>
+
+            <div class="kpi">
+              <div class="k"><b>+ Discipline</b><span>calls clairs & structure</span></div>
+              <div class="k"><b>+ Agressif</b><span>entry / préshots</span></div>
+              <div class="k"><b>+ Teamplay</b><span>info, trade, tempo</span></div>
+            </div>
+
+            <p class="note">
+              🔧 À personnaliser : liens Twitch/TikTok/YouTube + ton logo (image).
+            </p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="pad">
+            <h2 id="reseaux">Réseaux</h2>
+            <div class="cols" style="grid-template-columns:1fr; gap:10px;">
+              <div class="tile">
+                <h3>🎥 Twitch</h3>
+                <p><a href="#" id="twitchLink">GWQCBigBoss</a></p>
+              </div>
+              <div class="tile">
+                <h3>📱 TikTok</h3>
+                <p><a href="#" id="tiktokLink">@BigBoss.GWQC</a></p>
+              </div>
+              <div class="tile">
+                <h3>▶️ YouTube</h3>
+                <p><a href="#" id="ytLink">GreenWolves Esports</a></p>
+              </div>
+              <div class="tile">
+                <h3>💬 Discord</h3>
+                <p><a href="#" id="discordLink">Lien d’invitation</a></p>
+              </div>
+            </div>
+
+            <div style="margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn" href="#contact">Contact</a>
+              <a class="ghost" href="#highlights">Highlights</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section card" id="apropos">
+      <div class="pad">
+        <h2>À propos</h2>
+        <div class="cols">
+          <div class="tile">
+            <h3>🧠 Vision</h3>
+            <p>Construire une équipe solide : communication, constance, progression et esprit de meute.</p>
+          </div>
+          <div class="tile">
+            <h3>🧩 Style</h3>
+            <p>Prise d’info, préshots, timings, et exécution. On joue pour gagner, pas pour le style.</p>
+          </div>
+          <div class="tile">
+            <h3>🟩 Identité</h3>
+            <p>Vert fluo, noir, look esports clean. GWQC = Québec, fierté locale.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="roster">
+      <div class="card">
+        <div class="pad">
+          <h2>Roster</h2>
+
+          <div class="roster">
+            <div class="player">
+              <div class="name">BigBoss</div>
+              <div class="role">IGL / Calls</div>
+              <span class="pill">Lead</span>
+            </div>
+
+            <div class="player">
+              <div class="name">Pakoo</div>
+              <div class="role">Préshots / Wallbang</div>
+              <span class="pill">Fragger</span>
+            </div>
+
+            <div class="player">
+              <div class="name">Kalio</div>
+              <div class="role">Entry / Aggro</div>
+              <span class="pill">Entry</span>
+            </div>
+
+            <div class="player">
+              <div class="name">Optify</div>
+              <div class="role">Sense / Read</div>
+              <span class="pill">Support</span>
+            </div>
+
+            <div class="player">
+              <div class="name">PCQRT</div>
+              <div class="role">Info / Calls</div>
+              <span class="pill">Flex</span>
+            </div>
+          </div>
+
+          <p class="note">💡 Tu peux changer les noms/roles ici direct dans le HTML.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="highlights">
+      <div class="card">
+        <div class="pad">
+          <h2>Highlights</h2>
+          <div class="cols">
+            <div class="tile">
+              <h3>🎬 Clip #1</h3>
+              <p>Remplace ce texte par un lien YouTube/TikTok (ace, clutch, etc.).</p>
+            </div>
+            <div class="tile">
+              <h3>🎬 Clip #2</h3>
+              <p>Ajoute tes meilleurs rounds + un mini résumé.</p>
+            </div>
+            <div class="tile">
+              <h3>🎬 Clip #3</h3>
+              <p>Montre la progression de la team (scrims, tournois).</p>
+            </div>
+          </div>
+          <p class="note">Tu peux coller des liens ici, ou intégrer des iframes YouTube si tu veux.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="card">
+        <div class="pad">
+          <h2>Contact / Recrutement</h2>
+          <p class="sub" style="margin-bottom:10px;">
+            Remplis le message et ça ouvre ton appli mail (gratuit, sans serveur).
+          </p>
+
+          <div class="inputs">
+            <input id="cname" placeholder="Ton nom / pseudo" />
+            <input id="cfrom" placeholder="Ton email (optionnel)" />
+          </div>
+          <textarea id="cmsg" placeholder="Ton message (âge, rang, rôle, dispo, expérience, etc.)"></textarea>
+
+          <div class="sendrow">
+            <button class="btn" id="sendBtn" type="button">Envoyer</button>
+            <button class="ghost" id="copyBtn" type="button">Copier le message</button>
+            <span class="note" id="status"></span>
+          </div>
+
+          <p class="note">
+            📩 Email de l’équipe (à changer) : <b id="teamMail">gwqc.contact@email.com</b>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrap" style="padding:0;">
+        <div style="display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <div>© <span id="year"></span> GreenWolves Esports — GWQC</div>
+          <div style="color:var(--muted);">Fait en 1 page • Gratuit • Propre</div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // ✅ Personnalise ici tes liens
+    const LINKS = {
+      twitch: "https://www.twitch.tv/gwqcbigboss",
+      tiktok: "https://www.tiktok.com/@bigboss.gwqc",
+      youtube: "https://www.youtube.com/",
+      discord: "https://discord.gg/"
+    };
+
+    // ✅ Ton email d'équipe (pour le bouton envoyer)
+    const TEAM_EMAIL = "gwqc.contact@email.com";
+
+    document.getElementById("twitchLink").href = LINKS.twitch;
+    document.getElementById("tiktokLink").href = LINKS.tiktok;
+    document.getElementById("ytLink").href = LINKS.youtube;
+    document.getElementById("discordLink").href = LINKS.discord;
+
+    document.getElementById("teamMail").textContent = TEAM_EMAIL;
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    const statusEl = document.getElementById("status");
+
+    function buildMailto() {
+      const name = document.getElementById("cname").value.trim();
+      const from = document.getElementById("cfrom").value.trim();
+      const msg  = document.getElementById("cmsg").value.trim();
+
+      const subject = encodeURIComponent(`[GWQC] Contact ${name || "—"}`);
+      const body = encodeURIComponent(
+        `Nom/Pseudo: ${name || "-"}\nEmail: ${from || "-"}\n\nMessage:\n${msg || "-"}\n`
+      );
+
+      return `mailto:${TEAM_EMAIL}?subject=${subject}&body=${body}`;
+    }
+
+    document.getElementById("sendBtn").addEventListener("click", () => {
+      const href = buildMailto();
+      window.location.href = href;
+      statusEl.textContent = "Ouverture de ton email…";
+      setTimeout(() => statusEl.textContent = "", 2500);
+    });
+
+    document.getElementById("copyBtn").addEventListener("click", async () => {
+      const name = document.getElementById("cname").value.trim();
+      const from = document.getElementById("cfrom").value.trim();
+      const msg  = document.getElementById("cmsg").value.trim();
+      const text =
+        `Nom/Pseudo: ${name || "-"}\nEmail: ${from || "-"}\n\nMessage:\n${msg || "-"}\n`;
+
+      try{
+        await navigator.clipboard.writeText(text);
+        statusEl.textContent = "Message copié ✅";
+      }catch(e){
+        statusEl.textContent = "Impossible de copier (navigateur).";
+      }
+      setTimeout(() => statusEl.textContent = "", 2500);
+    });
+  </script>
+</body>
+</html>
